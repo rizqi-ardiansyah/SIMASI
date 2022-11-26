@@ -25,7 +25,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="(admin, index) in admins.data" :key="index">
+                                            <tr v-for="(admin, index) in users.data" :key="index">
                                                 <td class="text-capitalize">{{ admin.name }}</td>
                                                 <td>{{ admin.email }}</td>
                                                 <!-- <td>{{ admin.roles }}</td> -->
@@ -44,7 +44,7 @@
                                     </table>
                                 </div>
                                 <div class="card-footer clearfix">
-                                    <pagination :links="admins.links"></pagination>
+                                    <pagination :links="users.links"></pagination>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +87,8 @@
                                             {{ form.errors.email }}
                                         </div>
 
-                                        <div class="form-group" v-if="editMode">
+                                        <!-- <div class="form-group" v-if="editMode"> -->
+                                        <div class="form-group">
                                             <label for="roles" class="h4">Roles</label>
                                             <multiselect
                                                 v-model="form.roles[0]"
@@ -124,7 +125,7 @@
     import AdminLayout from '@/Layouts/AdminLayout'
     import Pagination from '@/Components/Pagination'
     export default {
-        props: ['roles', 'admins'],
+        props: ['roles', 'users'],
         components: {
             AdminLayout,
             Pagination,
@@ -132,7 +133,7 @@
         data() {
             return {
                 editedIndex: -1,
-                editMode: false,
+                // editMode: false,
                 form: this.$inertia.form({
                     id: '',
                     name: '',
@@ -149,8 +150,11 @@
             buttonTxt() {
                 return this.editedIndex === -1 ? 'Create' : 'Edit';
             },
+            // checkMode() {
+            //     return this.editMode === false ? this.createUser : this.editUser
+            // }
             checkMode() {
-                return this.editMode === false ? this.createUser : this.editUser
+                return this.editedIndex === -1 ? this.createUser : this.editUser
             }
         },
         methods: {
@@ -162,9 +166,10 @@
                 this.form.roles.push(tag)
             },
             editModal(admin) {
-                this.editMode = true
+                // this.editMode = true
+                this.editedIndex = 1
                 $('#modal-lg').modal('show')
-                this.editedIndex = this.admins.data.indexOf(admin)
+                this.editedIndex = this.users.data.indexOf(admin)
                 this.form.name = admin.name
                 this.form.email = admin.email
                 this.form.id = admin.id
@@ -176,7 +181,7 @@
             },
             closeModal() {
                 this.form.clearErrors()
-                this.editMode = false
+                // this.editMode = false
                 this.form.reset()
                 $('#modal-lg').modal('hide')
             },

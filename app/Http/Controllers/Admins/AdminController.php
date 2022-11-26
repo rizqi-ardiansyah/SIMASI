@@ -14,7 +14,7 @@ class AdminController extends Controller
     use HasRoles;
 
     public function __construct() {
-        $this->middleware(['role:admin|user']);
+        $this->middleware(['role: pusdalop|trc']);
     }
 
     /**

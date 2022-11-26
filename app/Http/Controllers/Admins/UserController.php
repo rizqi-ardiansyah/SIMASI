@@ -22,8 +22,8 @@ class UserController extends Controller
      */
     public function index() {
         return Inertia::render('Admins/Users/Index', [
-            'admins' => User::where('is_admin', 1)->latest()->paginate(5),
-            // 'users' => User::where('is_admin', 0)->latest()->paginate(5),
+            // 'admins' => User::where('is_admin', 1)->latest()->paginate(5),
+            'users' => User::where('is_admin', 1)->latest()->paginate(5),
             'roles' => Role::all()
         ]);
     }
@@ -45,20 +45,38 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        if (auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+        if (auth()->user()->hasAnyRole(['pusdalop', 'trc'])) {
             $this->validate($request, [
                 'name' => ['required', 'max:50'],
                 'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
             ]);
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'is_admin' => 0,
-                'password' => Hash::make('password')
-            ]);
-            $role = Role::where('id', 5)->first();
-            $user->syncRoles($role);
-            return back();
+            if ($request->roles[0] === null) {
+                return back()->withErrors(['roles' => 'The role field is required']);
+            }
+            if ($request->roles[0]['id'] != 5) {
+                $adminRole = Role::where('id', $request->roles[0]['id'])->first();
+                $user = User::create([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'is_admin' => 1,
+                    'password' => Hash::make('password')
+                ]);
+                // $user->update([
+                //     'name' => $request->name,
+                //     'email' => $request->email,
+                //     'is_admin' => 1,
+                // ]);
+                $user->syncRoles($adminRole);
+                return back();
+            } else {
+                $user->update([
+                    'name' => $request->name,
+                    'email' => $request->email,
+                ]);
+            }
+            // $role = Role::where('id', 5)->first();
+            // $user->syncRoles($role);
+            // return back();
         }
         return back();
     }
@@ -93,7 +111,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user) {
-        if (auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+        if (auth()->user()->hasAnyRole(['pusdalop', 'trc'])) {
             $this->validate($request, [
                 'name' => ['required', 'max:50'],
                 'email' => ['required', 'string', 'email', 'max:50'],
@@ -128,7 +146,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user) {
-        if (auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+        if (auth()->user()->hasAnyRole(['pusdalop', 'trc'])) {
             $user->delete();
             return back();
         }
