@@ -21,6 +21,7 @@
                                                 <th class="text-capitalize">Nama</th>
                                                 <th class="text-capitalize">E-mail</th>
                                                 <th class="text-capitalize">Peran</th>
+                                                <th class="text-capitalize">Posko</th>
                                                 <th class="text-capitalize text-right" v-if="$page.props.auth.hasRole.admin">Aksi</th>
                                             </tr>
                                         </thead>
@@ -35,6 +36,12 @@
                                                         {{ role.name }}
                                                     </template>
                                                 </td>
+                                                <td>
+                                                    <template v-for="poskos in admin.posko" :key="poskos.id">
+                                                        {{ poskos.namaPosko }}
+                                                    </template>
+                                                </td>
+                                                <!-- <td>{{ admin.namaPosko }}</td> -->
                                                 <td class="text-right" v-if="$page.props.auth.hasRole.admin">
                                                     <button class="btn btn-success text-uppercase" style="letter-spacing: 0.1em;" @click="editModal(admin)">Ubah</button>
                                                     <button class="btn btn-danger text-uppercase ml-1" style="letter-spacing: 0.1em;" @click="deleteUser(admin)">Hapus</button>
@@ -62,18 +69,18 @@
                             </button>
                         </div>
                         <div class="modal-body overflow-hidden">
-                            <div class="d-flex flex-column h4">
+                            <!-- <div class="d-flex flex-column h4">
                                 <span>Preview: <span class="text-capitalize">{{ form.name }}</span>
                                 </span>
                                 <span class="mt-2">Preview E-mail: <span class="text-capitalize">{{ form.email }}</span>
                                 </span>
-                            </div>
+                            </div> -->
                             <div class="card card-primary">
                                 <form @submit.prevent="checkMode">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="name" class="h4">Name</label>
-                                            <input type="text" class="form-control" placeholder="Name" v-model="form.name" :class="{ 'is-invalid' : form.errors.name }" autofocus="autofocus" autocomplete="off">
+                                            <label for="name" class="h4">Nama</label>
+                                            <input type="text" class="form-control" placeholder="Nama" v-model="form.name" :class="{ 'is-invalid' : form.errors.name }" autofocus="autofocus" autocomplete="off">
                                         </div>
                                         <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.name}">
                                             {{ form.errors.name }}
@@ -87,16 +94,37 @@
                                             {{ form.errors.email }}
                                         </div>
 
-                                        <!-- <div class="form-group" v-if="editMode"> -->
                                         <div class="form-group">
-                                            <label for="roles" class="h4">Roles</label>
+                                            <label for="posko" class="h4">Posko</label>
+                                            <multiselect
+                                                v-model="form.posko[0]"
+                                                :options="poskoOptions"
+                                                :multiple="false"
+                                                :taggable="true"
+                                                placeholder="Pilih posko"
+                                                @tag="addTag"   
+                                                label="namaPosko"
+                                                track-by="id"
+                                            ></multiselect>
+                                        </div>
+                                        <!-- <div class="form-group">
+                                            <label for="email" class="h4">Posko</label>
+                                            <input type="email" class="form-control" placeholder="Posko" v-model="form.posko" :class="{ 'is-invalid' : form.errors.posko }" autocomplete="off">
+                                        </div>
+                                        <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.posko}">
+                                            {{ form.errors.posko }}
+                                        </div>
+
+                                        <div class="form-group" v-if="editMode"> -->
+                                        <div class="form-group">
+                                            <label for="roles" class="h4">Peran</label>
                                             <multiselect
                                                 v-model="form.roles[0]"
                                                 :options="roleOptions"
                                                 :multiple="false"
                                                 :taggable="true"
-                                                placeholder="Choose new role"
-                                                @tag="addTag"
+                                                placeholder="Pilih peran"
+                                                @tag="addTag"   
                                                 label="name"
                                                 track-by="id"
                                             ></multiselect>
@@ -107,7 +135,7 @@
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-danger text-uppercase" style="letter-spacing: 0.1em;" @click="closeModal">Cancel</button>
+                                        <button type="button" class="btn btn-danger text-uppercase" style="letter-spacing: 0.1em;" @click="closeModal">Batal</button>
                                         <button type="submit" class="btn btn-info text-uppercase" style="letter-spacing: 0.1em;" :disabled="!form.name || !form.email || form.processing">{{ buttonTxt }}</button>
                                     </div>
                                 </form>
@@ -125,7 +153,7 @@
     import AdminLayout from '@/Layouts/AdminLayout'
     import Pagination from '@/Components/Pagination'
     export default {
-        props: ['roles', 'users'],
+        props: ['roles', 'users', 'posko'],
         components: {
             AdminLayout,
             Pagination,
@@ -138,17 +166,19 @@
                     id: '',
                     name: '',
                     email: '',
-                    roles: []
+                    roles: [],
+                    posko: []
                 }),
                 roleOptions: this.roles,
+                poskoOptions: this.posko,
             }
         },
         computed: {
             formTitle() {
-                return this.editedIndex === -1 ? 'Create New User' : 'Edit Current User';
+                return this.editedIndex === -1 ? 'Tambah Admin Baru' : 'Ubah Admin';
             },
             buttonTxt() {
-                return this.editedIndex === -1 ? 'Create' : 'Edit';
+                return this.editedIndex === -1 ? 'Tambah' : 'Ubah';
             },
             // checkMode() {
             //     return this.editMode === false ? this.createUser : this.editUser
@@ -163,7 +193,8 @@
                     name: newRole,
                 }
                 this.roleOptions.push(tag)
-                this.form.roles.push(tag)
+                this.poskoOptions.push(tag)
+                this.form.posko.push(tag)
             },
             editModal(admin) {
                 // this.editMode = true
@@ -174,6 +205,7 @@
                 this.form.email = admin.email
                 this.form.id = admin.id
                 this.form.roles = admin.roles
+                // this.form.posko = admin.posko
             },
             openModal() {
                 this.editedIndex = -1
@@ -192,7 +224,7 @@
                         this.closeModal()
                         Toast.fire({
                             icon: 'success',
-                            title: 'New user created!'
+                            title: 'Admin berhasil dibuat!'
                         })
                     }
                 })
@@ -203,7 +235,7 @@
                     onSuccess:() => {
                         Toast.fire({
                             icon: 'success',
-                            title: 'User has been updated!'
+                            title: 'Admin berhasil diubah!'
                         })
                         this.closeModal()
                     }
@@ -211,21 +243,21 @@
             },
             deleteUser(user) {
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
+                    title: 'Apakah Kamu yakin?',
+                    text: "Data kamu akan terhapus!",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
+                    confirmButtonText: 'Iya, saya yakin!'
                 }).then((result) => {
                     if (result.isConfirmed) {
                         this.form.delete(this.route('admin.users.destroy', user), {
                             preserveScroll: true,
                             onSuccess: ()=> {
                                 Swal.fire(
-                                    'Deleted!',
-                                    'User has been deleted.',
+                                    'Terhapus!',
+                                    'Admin sudah terhapus.',
                                     'success'
                                 )
                             }

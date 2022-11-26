@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
+use App\Models\Posko;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,6 +25,17 @@ class UserController extends Controller
         return Inertia::render('Admins/Users/Index', [
             // 'admins' => User::where('is_admin', 1)->latest()->paginate(5),
             'users' => User::where('is_admin', 1)->latest()->paginate(5),
+            // 'users' => User::select(
+            //     'id',  
+            //     'nama',
+            //     'is_admin',
+            //     'email',
+            //     'password',
+            //     'p.namaPosko'
+            // )
+            // ->join('posko AS p', 'users.posko_id','=','p.id')
+            // ->paginate(5),
+            'posko' => Posko::all(),
             'roles' => Role::all()
         ]);
     }

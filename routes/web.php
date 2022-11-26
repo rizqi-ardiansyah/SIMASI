@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use App\Http\Controllers\Admins\RoleController;
 use App\Http\Controllers\Admins\UserController;
 use App\Http\Controllers\Admins\AdminController;
+use App\Http\Controllers\Admins\PoskoController;
 use App\Http\Controllers\Admins\PermissionController;
 use App\Http\Controllers\Admins\AdminDashboardController;
 
@@ -40,6 +41,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:sanctum', 'verified', 
     // Route::resource('admins', UserController::class)->except(['create', 'show', 'edit']);
     Route::resource('users', UserController::class)->except(['create', 'show', 'edit']);
     Route::resource('pengungsi', PengungsiController::class)->except(['create', 'show', 'edit']);
+    Route::resource('posko', PoskoController::class)->except(['create', 'show', 'edit']);
     Route::resource('permissions', PermissionController::class)->except(['create', 'show', 'edit']);
     Route::resource('roles', RoleController::class)->except(['create', 'show', 'edit']);
 });

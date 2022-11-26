@@ -44,6 +44,12 @@ class User extends Authenticatable
         'two_factor_secret',
     ];
 
+    public function posko()
+    {
+        return $this->hasOne(Posko::class);
+    }
+
+
     /**
      * The attributes that should be cast to native types.
      *

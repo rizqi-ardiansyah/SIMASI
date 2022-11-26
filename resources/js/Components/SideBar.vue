@@ -135,6 +135,16 @@
             <ul class="nav nav-treeview">
               <li class="nav-item" v-if="$page.props.auth.hasRole.admin">
                 <inertia-link
+                  :href="route('admin.posko.index')"
+                  class="nav-link"
+                  :class="route().current('admin.posko.*') ? 'active' : ' '"
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Atur posko</p>
+                </inertia-link>
+              </li>
+              <li class="nav-item" v-if="$page.props.auth.hasRole.admin">
+                <inertia-link
                   :href="route('admin.roles.index')"
                   class="nav-link"
                   :class="route().current('admin.roles.*') ? 'active' : ' '"
