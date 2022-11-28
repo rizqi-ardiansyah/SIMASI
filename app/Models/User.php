@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Posko;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,7 @@ class User extends Authenticatable
     use HasRoles;
     use TwoFactorAuthenticatable;
 
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +32,8 @@ class User extends Authenticatable
         'email',
         'is_admin',
         'password',
+        'role_id',
+        'posko_id'
     ];
 
     /**
