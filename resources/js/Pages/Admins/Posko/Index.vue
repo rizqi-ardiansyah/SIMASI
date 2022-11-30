@@ -186,7 +186,7 @@
         },
         computed: {
             formTitle() {
-                return this.editedIndex === -1 ? 'Tambah Admin Baru' : 'Ubah Admin';
+                return this.editedIndex === -1 ? 'Tambah Posko Baru' : 'Ubah Posko';
             },
             buttonTxt() {
                 return this.editedIndex === -1 ? 'Tambah' : 'Ubah';

@@ -26,9 +26,9 @@ class UserController extends Controller
             // 'admins' => User::where('is_admin', 1)->latest()->paginate(5),
             // 'users' => User::where('is_admin', 1)->latest()->paginate(5),
             'users' => User::select('users.name','users.email','users.posko_id','users.id AS idAdmin','p.id','p.namaPosko','users.role_id', 'r.name AS namaPeran')
-            ->join('posko AS p', 'users.posko_id','=','p.id')
+            ->leftJoin('posko AS p', 'users.posko_id','=','p.id')
             // ->join('model_has_roles AS mr', 'users.id', '=', 'mr.model_id')
-            ->join('roles AS r', 'users.role_id', '=', 'r.id')
+            ->leftJoin('roles AS r', 'users.role_id', '=', 'r.id')
             ->where('is_admin',1)
             ->paginate(5),
             // 'users' => User::select(

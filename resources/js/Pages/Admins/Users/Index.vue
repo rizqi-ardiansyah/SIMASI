@@ -161,7 +161,9 @@
                                                     <!-- {{ user.name }} = {{ user.spesialis }} -->
                                                 </option>
                                             </select>
-                                            <!-- <multiselect
+                                       
+                                        </div>
+                                             <!-- <multiselect
                                                 v-model="form.posko[0]"
                                                 :options="poskoOptions"
                                                 :multiple="false"
@@ -171,7 +173,7 @@
                                                 label="namaPosko"
                                                 track-by="id"
                                             ></multiselect> -->
-                                        </div>
+                                            
                                         <!-- <div class="form-group">
                                             <label for="email" class="h4">Posko</label>
                                             <input type="email" class="form-control" placeholder="Posko" v-model="form.posko" :class="{ 'is-invalid' : form.errors.posko }" autocomplete="off">

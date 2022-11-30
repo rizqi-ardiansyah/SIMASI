@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+// use App\Models\User;
 use App\Models\Role;
+use App\Models\Posko;
 use Inertia\Inertia;
 use App\Models\Bencana;
 use Illuminate\Http\Request;
@@ -20,7 +21,12 @@ class BencanaController extends Controller
     {
         return Inertia::render('Admins/Bencana/Index', [
             // 'users' => User::where('is_admin', 0)->whereDate('created_at', '>', $ago)->count()
-            'users' => User::where('is_admin', 1)->get(),
+            // 'bencana' => Bencana::latest()->paginate(5),
+            'bencana' => Bencana::select('bencana.id','nama', 'tanggal', 'waktu', 'lokasi', 'korban', 'kerusakan', 'posko_id', 'p.namaPosko')
+            ->leftJoin('posko AS p', 'bencana.posko_id', '=', 'p.id')
+            ->orderBy('bencana.tanggal', 'desc')
+            ->paginate(5),
+            'posko' => Posko::select('posko.namaPosko')->paginate(5),
             'roles' => Role::all()
         ]);
     }
@@ -43,7 +49,20 @@ class BencanaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (auth()->user()->hasAnyRole(['pusdalop','trc'])) {
+            $idPoskoBencana = Posko::where('namaPosko', $request->posko)->value('id');
+            Bencana::create([
+                'nama' => $request->nama,
+                'tanggal' => $request->tanggal,
+                'waktu' => $request->waktu,
+                'lokasi' => $request->lokasi,
+                'korban' => $request->korban,
+                'kerusakan' => $request->kerusakan,
+                'posko_id' => $idPoskoBencana
+            ]);
+            return back();
+        }
+        return back();
     }
 
     /**
@@ -77,7 +96,21 @@ class BencanaController extends Controller
      */
     public function update(Request $request, Bencana $bencana)
     {
-        //
+        $getBencana = Bencana::where('id', $request->id)->first();
+        $idPoskoBencana = Posko::where('namaPosko', $request->posko)->value('id');
+
+        if (auth()->user()->hasAnyRole(['pusdalop','trc'])) {
+            $getBencana->update([
+                'nama' => $request->nama,
+                'tanggal' => $request->tanggal,
+                'waktu' => $request->waktu,
+                'lokasi' => $request->lokasi,
+                'korban' => $request->korban,
+                'kerusakan' => $request->kerusakan,
+                'posko_id' => $idPoskoBencana
+            ]);
+        }
+        return back();
     }
 
     /**
@@ -86,8 +119,12 @@ class BencanaController extends Controller
      * @param  \App\Models\Bencana  $bencana
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bencana $bencana)
-    {
-        //
+    public function destroy($bencana)
+    {if (auth()->user()->hasAnyRole(['pusdalop','trc'])) {
+        $hapusBencana = Bencana::where('id', $bencana)->first();
+        $hapusBencana->delete();
+        return back();
+    }
+        return back();
     }
 }
