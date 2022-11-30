@@ -3,12 +3,12 @@
     <!-- Brand Logo -->
     <inertia-link :href="route('admin.dashboard.index')" class="brand-link">
       <img
-        :src="'../images/TechNisiLogo.png'"
-        alt="TechNisi Logo"
+        :src="'../images/logoSimasi.png'"
+        alt="SIMASI"
         class="brand-image img-circle elevation-3"
         style="opacity: 0.8"
       />
-      <span class="brand-text font-weight-light">TechNisi</span>
+      <span class="brand-text font-weight-light">SIMASI</span>
     </inertia-link>
 
     <!-- Sidebar -->
@@ -44,7 +44,7 @@
               :class="route().current('admin.dashboard.*') ? 'active' : ' '"
             >
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Dashboard</p>
+              <p>Beranda</p>
             </inertia-link>
           </li>
           <li class="nav-item">
@@ -100,9 +100,9 @@
                   $page.props.auth.hasRole.admin || $page.props.auth.hasRole.user"
                  >
                 <inertia-link
-                  :href="route('admin.pengungsi.index')"
+                  :href="route('admin.backup.index')"
                   class="nav-link"
-                  :class="route().current('admin.pengungsi.*') ? 'active' : ' '"
+                  :class="route().current('admin.backup.*') ? 'active' : ' '"
                 >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cadang & pulihkan</p>
@@ -114,9 +114,9 @@
                   $page.props.auth.hasRole.admin || $page.props.auth.hasRole.user"
                  >
                 <inertia-link
-                  :href="route('admin.pengungsi.index')"
+                  :href="route('admin.laporan.index')"
                   class="nav-link"
-                  :class="route().current('admin.pengungsi.*') ? 'active' : ' '"
+                  :class="route().current('admin.laporan.*') ? 'active' : ' '"
                 >
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan</p>
@@ -133,6 +133,16 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item" v-if="$page.props.auth.hasRole.admin">
+                <inertia-link
+                  :href="route('admin.bencana.index')"
+                  class="nav-link"
+                  :class="route().current('admin.bencana.*') ? 'active' : ' '"
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Atur bencana</p>
+                </inertia-link>
+              </li>
               <li class="nav-item" v-if="$page.props.auth.hasRole.admin">
                 <inertia-link
                   :href="route('admin.posko.index')"
@@ -167,11 +177,11 @@
               </li>
             </ul>
           </li>
-          <li class="nav-header">MISCELLANEOUS</li>
+          <li class="nav-header">Lainnya</li>
           <li class="nav-item">
             <inertia-link :href="route('dashboard')" class="nav-link">
               <i class="nav-icon fas fa-home"></i>
-              <p>Site</p>
+              <p>Jetstream</p>
             </inertia-link>
           </li>
           <!-- <li class="nav-item">
@@ -186,7 +196,7 @@
             <form @submit.prevent="logout">
               <button type="submit" class="nav-button">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
-                <p>Logout</p>
+                <p>Keluar</p>
               </button>
             </form>
           </li>

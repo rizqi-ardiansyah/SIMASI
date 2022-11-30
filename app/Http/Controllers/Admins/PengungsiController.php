@@ -1,9 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admins;
 
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\Role;
 use App\Models\Pengungsi;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class PengungsiController extends Controller
 {
@@ -14,7 +18,11 @@ class PengungsiController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Admins/Pengungsi/Index', [
+            // 'users' => User::where('is_admin', 0)->whereDate('created_at', '>', $ago)->count()
+            'users' => User::where('is_admin', 1)->get(),
+            'roles' => Role::all()
+        ]);
     }
 
     /**

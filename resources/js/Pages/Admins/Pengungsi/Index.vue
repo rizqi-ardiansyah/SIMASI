@@ -7,7 +7,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Admin</h3>
+                                    <h3 class="card-title">Pengungsi</h3>
                                     <div class="card-tools" v-if="$page.props.auth.hasRole.admin">
                                         <button type="button" class="btn btn-info text-uppercase" style="letter-spacing: 0.1em;" @click="openModal">
                                             Tambah
@@ -18,11 +18,11 @@
                                     <table class="table table-hover text-nowrap">
                                         <thead>
                                             <tr>
-                                                <th class="text-capitalize">Nama</th>
-                                                <th class="text-capitalize">E-mail</th>
+                                                <th class="text-capitalize">Ini tampilan pengungsi</th>
+                                                <!-- <th class="text-capitalize">E-mail</th>
                                                 <th class="text-capitalize">Peran</th>
                                                 <th class="text-capitalize">Posko</th>
-                                                <th class="text-capitalize text-right" v-if="$page.props.auth.hasRole.admin">Aksi</th>
+                                                <th class="text-capitalize text-right" v-if="$page.props.auth.hasRole.admin">Aksi</th> -->
                                             </tr>
                                         </thead>
                                         <tbody>

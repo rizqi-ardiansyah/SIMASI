@@ -303,7 +303,7 @@ export default {
         },
         deleteUser(admin) {
             Swal.fire({
-                title: 'ApakeUserah Kamu yakin?',
+                title: 'Apakah Kamu yakin?',
                 text: "Data kamu akan terhapus!",
                 icon: 'warning',
                 showCancelButton: true,

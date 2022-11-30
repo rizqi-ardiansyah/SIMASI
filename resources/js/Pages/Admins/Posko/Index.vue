@@ -43,8 +43,8 @@
                                                     </template>
                                                 </td> -->
                                                 <td class="text-right" v-if="$page.props.auth.hasRole.admin">
-                                                    <button class="btn btn-success text-uppercase" style="letter-spacing: 0.1em;" @click="editModal(admin)">Ubah</button>
-                                                    <button class="btn btn-danger text-uppercase ml-1" style="letter-spacing: 0.1em;" @click="deleteUser(admin)">Hapus</button>
+                                                    <button class="btn btn-success text-uppercase" style="letter-spacing: 0.1em;" @click="editModal(poskos)">Ubah</button>
+                                                    <button class="btn btn-danger text-uppercase ml-1" style="letter-spacing: 0.1em;" @click="deletePosko(poskos)">Hapus</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -79,51 +79,74 @@
                                 <form @submit.prevent="checkMode">
                                     <div class="card-body">
                                         <div class="form-group">
-                                            <label for="name" class="h4">Nama</label>
-                                            <input type="text" class="form-control" placeholder="Nama" v-model="form.name" :class="{ 'is-invalid' : form.errors.name }" autofocus="autofocus" autocomplete="off">
+                                            <input type="hidden" class="form-control" placeholder="Kota" v-model="form.id" autofocus="autofocus" autocomplete="off">
                                         </div>
-                                        <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.name}">
-                                            {{ form.errors.name }}
+                                        <div class="form-group">
+                                            <label for="provinsi" class="h4">Provinsi</label>
+                                            <input type="text" class="form-control" placeholder="Provinsi" v-model="form.provinsi" :class="{ 'is-invalid' : form.errors.provinsi }" autofocus="autofocus" autocomplete="off">
+                                        </div>
+                                        <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.provinsi}">
+                                            {{ form.errors.provinsi }}
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="email" class="h4">E-mail</label>
-                                            <input type="email" class="form-control" placeholder="E-mail Address" v-model="form.email" :class="{ 'is-invalid' : form.errors.email }" autocomplete="off">
+                                            <label for="kota" class="h4">Kota</label>
+                                            <input type="text" class="form-control" placeholder="Kota" v-model="form.kota" :class="{ 'is-invalid' : form.errors.kota }" autofocus="autofocus" autocomplete="off">
                                         </div>
-                                        <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.email}">
-                                            {{ form.errors.email }}
+                                        <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.kota}">
+                                            {{ form.errors.kota }}
                                         </div>
 
                                         <div class="form-group">
+                                            <label for="kecamatan" class="h4">Kecamatan</label>
+                                            <input type="text" class="form-control" placeholder="Kecamatan" v-model="form.kecamatan" :class="{ 'is-invalid' : form.errors.kecamatan }" autocomplete="off">
+                                        </div>
+                                        <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.kecamatan}">
+                                            {{ form.errors.kecamatan }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="kelurahan" class="h4">Kelurahan</label>
+                                            <input type="text" class="form-control" placeholder="Kelurahan" v-model="form.kelurahan" :class="{ 'is-invalid' : form.errors.kelurahan }" autocomplete="off">
+                                        </div>
+                                        <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.kelurahan}">
+                                            {{ form.errors.kelurahan }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="detail" class="h4">Detail</label>
+                                            <input type="text" class="form-control" placeholder="Detail" v-model="form.detail" :class="{ 'is-invalid' : form.errors.detail }" autocomplete="off">
+                                        </div>
+                                        <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.detail}">
+                                            {{ form.errors.detail }}
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="namaPosko" class="h4">Nama Posko</label>
+                                            <input type="text" class="form-control" placeholder="Nama Posko" v-model="form.namaPosko" :class="{ 'is-invalid' : form.errors.namaPosko }" autocomplete="off">
+                                        </div>
+                                        <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.namaPosko}">
+                                            {{ form.errors.namaPosko }}
+                                        </div>
+
+                                        <!-- <div class="form-group">
                                             <label for="email" class="h4">Posko</label>
                                             <input type="email" class="form-control" placeholder="Posko" v-model="form.email" :class="{ 'is-invalid' : form.errors.email }" autocomplete="off">
                                         </div>
                                         <div class="invalid-feedback mb-3" :class="{ 'd-block' : form.errors.email}">
                                             {{ form.errors.email }}
-                                        </div>
+                                        </div> -->
 
                                         <!-- <div class="form-group" v-if="editMode"> -->
-                                        <div class="form-group">
-                                            <label for="roles" class="h4">Peran</label>
-                                            <multiselect
-                                                v-model="form.roles[0]"
-                                                :options="roleOptions"
-                                                :multiple="false"
-                                                :taggable="true"
-                                                placeholder="Pilih peran"
-                                                @tag="addTag"   
-                                                label="name"
-                                                track-by="id"
-                                            ></multiselect>
-                                        </div>
-                                        <div class="invalid-feedback" :class="{ 'd-block' : form.errors.roles}">
+
+                                        <!-- <div class="invalid-feedback" :class="{ 'd-block' : form.errors.roles}">
                                             {{ form.errors.roles }}
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-danger text-uppercase" style="letter-spacing: 0.1em;" @click="closeModal">Batal</button>
-                                        <button type="submit" class="btn btn-info text-uppercase" style="letter-spacing: 0.1em;" :disabled="!form.name || !form.email || form.processing">{{ buttonTxt }}</button>
+                                        <button type="submit" class="btn btn-info text-uppercase" style="letter-spacing: 0.1em;" :disabled="!form.provinsi || !form.kota || !form.kecamatan || !form.kelurahan || !form.detail || !form.namaPosko || form.processing">{{ buttonTxt }}</button>
                                     </div>
                                 </form>
                             </div>
@@ -151,11 +174,14 @@
                 // editMode: false,
                 form: this.$inertia.form({
                     id: '',
-                    name: '',
-                    email: '',
-                    roles: []
+                    provinsi: '',
+                    kota: '',
+                    kecamatan: '',
+                    kelurahan: '',
+                    detail: '',
+                    namaPosko:''
                 }),
-                roleOptions: this.roles,
+                // roleOptions: this.roles,
             }
         },
         computed: {
@@ -169,7 +195,7 @@
             //     return this.editMode === false ? this.createUser : this.editUser
             // }
             checkMode() {
-                return this.editedIndex === -1 ? this.createUser : this.editUser
+                return this.editedIndex === -1 ? this.createPosko : this.editPosko
             }
         },
         methods: {
@@ -180,15 +206,18 @@
                 this.roleOptions.push(tag)
                 this.form.roles.push(tag)
             },
-            editModal(admin) {
+            editModal(poskos) {
                 // this.editMode = true
                 this.editedIndex = 1
                 $('#modal-lg').modal('show')
-                this.editedIndex = this.posko.data.indexOf(admin)
-                this.form.name = admin.name
-                this.form.email = admin.email
-                this.form.id = admin.id
-                this.form.roles = admin.roles
+                this.editedIndex = this.posko.data.indexOf(poskos)
+                this.form.id = poskos.id
+                this.form.provinsi = poskos.provinsi
+                this.form.kota = poskos.kota
+                this.form.kecamatan = poskos.kecamatan
+                this.form.kelurahan = poskos.kelurahan
+                this.form.detail = poskos.detail
+                this.form.namaPosko = poskos.namaPosko
             },
             openModal() {
                 this.editedIndex = -1
@@ -200,31 +229,31 @@
                 this.form.reset()
                 $('#modal-lg').modal('hide')
             },
-            createUser() {
-                this.form.post(this.route('admin.users.store'), {
+            createPosko() {
+                this.form.post(this.route('admin.posko.store'), {
                     preserveScroll: true,
                     onSuccess:() => {
                         this.closeModal()
                         Toast.fire({
                             icon: 'success',
-                            title: 'Admin berhasil dibuat!'
+                            title: 'Posko berhasil ditambah!'
                         })
                     }
                 })
             },
-            editUser() {
-                this.form.patch(this.route('admin.users.update', this.form.id, this.form), {
+            editPosko() {
+                this.form.patch(this.route('admin.posko.update', this.form.id, this.form), {
                     preserveScroll: true,
                     onSuccess:() => {
                         Toast.fire({
                             icon: 'success',
-                            title: 'Admin berhasil diubah!'
+                            title: 'Posko berhasil diubah!'
                         })
                         this.closeModal()
                     }
                 })
             },
-            deleteUser(user) {
+            deletePosko(posko) {
                 Swal.fire({
                     title: 'Apakah Kamu yakin?',
                     text: "Data kamu akan terhapus!",
@@ -235,12 +264,12 @@
                     confirmButtonText: 'Iya, saya yakin!'
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        this.form.delete(this.route('admin.users.destroy', user), {
+                        this.form.delete(this.route('admin.posko.destroy', posko.id), {
                             preserveScroll: true,
                             onSuccess: ()=> {
                                 Swal.fire(
                                     'Terhapus!',
-                                    'Admin sudah terhapus.',
+                                    'Posko sudah terhapus.',
                                     'success'
                                 )
                             }

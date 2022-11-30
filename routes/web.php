@@ -3,12 +3,16 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-use App\Http\Controllers\Admins\RoleController;
+use App\Http\Controllers\Admins\AdminDashboardController;
 use App\Http\Controllers\Admins\UserController;
 use App\Http\Controllers\Admins\AdminController;
+use App\Http\Controllers\Admins\PengungsiController;
+use App\Http\Controllers\Admins\BackupController;
+use App\Http\Controllers\Admins\LaporanController;
+use App\Http\Controllers\Admins\BencanaController;
 use App\Http\Controllers\Admins\PoskoController;
 use App\Http\Controllers\Admins\PermissionController;
-use App\Http\Controllers\Admins\AdminDashboardController;
+use App\Http\Controllers\Admins\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +45,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth:sanctum', 'verified', 
     // Route::resource('admins', UserController::class)->except(['create', 'show', 'edit']);
     Route::resource('users', UserController::class)->except(['create', 'show', 'edit']);
     Route::resource('pengungsi', PengungsiController::class)->except(['create', 'show', 'edit']);
+    Route::resource('backup', BackupController::class)->except(['create', 'show', 'edit']);
+    Route::resource('laporan', LaporanController::class)->except(['create', 'show', 'edit']);
+    Route::resource('bencana', BencanaController::class)->except(['create', 'show', 'edit']);
     Route::resource('posko', PoskoController::class)->except(['create', 'show', 'edit']);
     Route::resource('permissions', PermissionController::class)->except(['create', 'show', 'edit']);
     Route::resource('roles', RoleController::class)->except(['create', 'show', 'edit']);

@@ -53,7 +53,18 @@ class PoskoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (auth()->user()->hasAnyRole(['pusdalop','trc'])) {
+            Posko::create([
+                'provinsi' => $request->provinsi,
+                'kota' => $request->kota,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->kelurahan,
+                'detail' => $request->detail,
+                'namaPosko' => $request->namaPosko,
+            ]);
+            return back();
+        }
+        return back();
     }
 
     /**
@@ -87,7 +98,19 @@ class PoskoController extends Controller
      */
     public function update(Request $request, Posko $posko)
     {
-        //
+        $posko = Posko::where('id', $request->id)->first();
+
+        if (auth()->user()->hasAnyRole(['pusdalop','trc'])) {
+            $posko->update([
+                'provinsi' => $request->provinsi,
+                'kota' => $request->kota,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->kelurahan,
+                'detail' => $request->detail,
+                'namaPosko' => $request->namaPosko,
+            ]);
+        }
+        return back();
     }
 
     /**
@@ -96,8 +119,12 @@ class PoskoController extends Controller
      * @param  \App\Models\Posko  $posko
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Posko $posko)
-    {
-        //
+    public function destroy($idPosko)
+    {if (auth()->user()->hasAnyRole(['pusdalop','trc'])) {
+        $hapusPosko = Posko::where('id', $idPosko)->first();
+        $hapusPosko->delete();
+        return back();
+    }
+        return back();
     }
 }

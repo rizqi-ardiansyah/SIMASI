@@ -16,6 +16,7 @@ class Posko extends Model
         'kota',
         'kecamatan',
         'kelurahan',
+        'detail',
         'namaPosko',
     ];
 

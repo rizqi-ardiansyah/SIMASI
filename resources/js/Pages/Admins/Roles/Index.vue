@@ -7,10 +7,10 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">Roles & Permissions</h3>
+                                    <h3 class="card-title">Peran</h3>
                                     <div class="card-tools" v-if="$page.props.auth.hasRole.admin">
                                         <button type="button" class="btn btn-info text-uppercase" style="letter-spacing: 0.1em;" @click="openModal">
-                                            Create
+                                            Tambah
                                         </button>
                                     </div>
                                 </div>
@@ -18,10 +18,10 @@
                                     <table class="table table-hover text-nowrap">
                                         <thead>
                                             <tr>
-                                                <th class="text-capitalize">Role Name</th>
-                                                <th class="text-capitalize">Permissions</th>
-                                                <th class="text-capitalize">Created</th>
-                                                <th class="text-capitalize text-right" v-if="$page.props.auth.hasRole.admin">Actions</th>
+                                                <th class="text-capitalize">Nama peran</th>
+                                                <th class="text-capitalize">Akses</th>
+                                                <th class="text-capitalize">Terbuat</th>
+                                                <th class="text-capitalize text-right" v-if="$page.props.auth.hasRole.admin">Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -36,8 +36,8 @@
                                                 </td>
                                                 <td>{{ role.created_at }}</td>
                                                 <td class="text-right" v-if="$page.props.auth.hasRole.admin">
-                                                    <button class="btn btn-success text-uppercase" style="letter-spacing: 0.1em;" @click="editModal(role)">Edit</button>
-                                                    <button class="btn btn-danger text-uppercase ml-1" style="letter-spacing: 0.1em;" @click="deleteRole(role)">Delete</button>
+                                                    <button class="btn btn-success text-uppercase" style="letter-spacing: 0.1em;" @click="editModal(role)">Ubah</button>
+                                                    <button class="btn btn-danger text-uppercase ml-1" style="letter-spacing: 0.1em;" @click="deleteRole(role)">Hapus</button>
                                                 </td>
                                             </tr>
                                         </tbody>
