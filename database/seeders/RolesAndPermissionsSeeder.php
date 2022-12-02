@@ -44,7 +44,11 @@ class RolesAndPermissionsSeeder extends Seeder
         // Misc
         $miscPermission = Permission::create(['name' => 'N/A', 'description' => 'N/A']);
 
+<<<<<<< HEAD
         $superAdminRole = Role::create(['name' => 'superAdmin']);
+=======
+        $superAdminRole = Role::create(['name' => 'super-admin']);
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
         $adminRole = Role::create(['name' => 'admin']);
         $moderatorRole = Role::create(['name' => 'moderator']);
         $developerRole = Role::create(['name' => 'developer']);

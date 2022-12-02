@@ -10,7 +10,11 @@ use Inertia\Inertia;
 class PermissionController extends Controller
 {
     public function __construct() {
+<<<<<<< HEAD
         $this->middleware(['role:admin|user']);
+=======
+        $this->middleware(['role:pusdalop|trc']);
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
     }
     
     /**

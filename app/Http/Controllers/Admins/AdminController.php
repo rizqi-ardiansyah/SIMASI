@@ -14,7 +14,11 @@ class AdminController extends Controller
     use HasRoles;
 
     public function __construct() {
+<<<<<<< HEAD
         $this->middleware(['role:admin|superAdmin']);
+=======
+        $this->middleware(['role: pusdalop|trc']);
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
     }
 
     /**
@@ -80,7 +84,11 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user) {
+<<<<<<< HEAD
         if (auth()->user()->hasAnyRole(['superAdmin', 'admin'])) {
+=======
+        if (auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
             if (!$request->roles) {
                 return back()->withErrors(['roles' => 'The role field is required']);
             }

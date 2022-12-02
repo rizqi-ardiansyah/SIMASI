@@ -10,6 +10,10 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+<<<<<<< HEAD
+=======
+use App\Models\Posko;
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
 
 class User extends Authenticatable
 {
@@ -20,6 +24,10 @@ class User extends Authenticatable
     use HasRoles;
     use TwoFactorAuthenticatable;
 
+<<<<<<< HEAD
+=======
+    protected $table = 'users';
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
     /**
      * The attributes that are mass assignable.
      *
@@ -30,6 +38,11 @@ class User extends Authenticatable
         'email',
         'is_admin',
         'password',
+<<<<<<< HEAD
+=======
+        'role_id',
+        'posko_id'
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
     ];
 
     /**
@@ -44,6 +57,15 @@ class User extends Authenticatable
         'two_factor_secret',
     ];
 
+<<<<<<< HEAD
+=======
+    public function posko()
+    {
+        return $this->hasOne(Posko::class);
+    }
+
+
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
     /**
      * The attributes that should be cast to native types.
      *

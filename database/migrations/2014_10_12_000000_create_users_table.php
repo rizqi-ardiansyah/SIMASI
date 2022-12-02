@@ -20,6 +20,11 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+<<<<<<< HEAD
+=======
+            $table->foreign('role_id')->references('id')->on('role'); 
+            $table->foreign('posko_id')->references('id')->on('posko');
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();

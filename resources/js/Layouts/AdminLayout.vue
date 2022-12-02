@@ -3,7 +3,13 @@
         <div class="wrapper" style="overflow: auto;">
  
         <!-- Preloader -->
+<<<<<<< HEAD
     
+=======
+        <!-- <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__wobble" :src="'../images/TechNisi.png'" alt="AdminLTELogo" height="300" width="300">
+        </div> -->
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
 
         <!-- Navbar -->
             <NavBar />

@@ -10,7 +10,10 @@ use Inertia\Inertia;
 
 class AdminDashboardController extends Controller
 {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
     /**
      * Display a listing of the resource.
      *

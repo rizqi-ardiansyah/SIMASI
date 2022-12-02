@@ -13,7 +13,11 @@ class RoleController extends Controller
 {
     use HasRoles;
     public function __construct() {
+<<<<<<< HEAD
         $this->middleware(['role:admin|user']);
+=======
+        $this->middleware(['role:pusdalop|trc']);
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
     }
 
     /**
@@ -45,7 +49,11 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+<<<<<<< HEAD
         if (auth()->user()->hasAnyRole(['superAdmin', 'admin'])) {
+=======
+        if (auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
             $this->validate($request, [
                 'name' => ['required', 'max:25', 'unique:roles'],
                 'permissions' => 'required'
@@ -92,7 +100,11 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Role $role) {
+<<<<<<< HEAD
         if (auth()->user()->hasAnyRole(['superAdmin', 'admin'])) {
+=======
+        if (auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
             $this->validate($request, [
                 'name' => ['required', 'max:25'],
                 'permissions' => 'required'
@@ -114,7 +126,11 @@ class RoleController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Role $role) {
+<<<<<<< HEAD
         if (auth()->user()->hasAnyRole(['superAdmin', 'admin'])) {
+=======
+        if (auth()->user()->hasAnyRole(['super-admin', 'admin'])) {
+>>>>>>> 246e1f5fff2a030a4e5e50a240466baa46bd9fb2
             $role->delete();
             return back();
         }
